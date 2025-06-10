@@ -1,0 +1,934 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinguaDigiTech | 语言数字人文研究平台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #0a0a1a;
+            color: #e0e0ff;
+            overflow-x: hidden;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #00ffff, #7e00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .tech-panel {
+            background: rgba(16, 16, 40, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(44, 116, 255, 0.3);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-panel:hover {
+            border-color: rgba(44, 116, 255, 0.8);
+            box-shadow: 0 0 20px rgba(0, 221, 255, 0.2);
+        }
+        
+        .hexagon {
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+        
+        .grid-bg {
+            background-image: radial-gradient(rgba(44, 116, 255, 0.15) 2px, transparent 2px);
+            background-size: 30px 30px;
+        }
+        
+        .data-flow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.1;
+            background-image: linear-gradient(90deg, transparent 0px, rgba(44, 116, 255, 0.7) 1px, transparent 1px), 
+                              linear-gradient(180deg, transparent 0px, rgba(44, 116, 255, 0.7) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: dataFlow 20s linear infinite;
+        }
+        
+        @keyframes dataFlow {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 40px 40px;
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.6;
+            }
+        }
+        
+        .chart-placeholder {
+            background: linear-gradient(120deg, #0a1a3f, #1a3a7f);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-placeholder::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 2s infinite;
+        }
+        
+        @keyframes shine {
+            100% {
+                left: 100%;
+            }
+        }
+        
+        .tool-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .tool-card:hover .tool-icon {
+            transform: scale(1.1);
+            color: #00ffff;
+        }
+    </style>
+</head>
+<body class="grid-bg">
+    <div class="data-flow"></div>
+    
+    <!-- 导航栏 -->
+    <nav class="sticky top-0 z-50 backdrop-blur-md bg-opacity-80 bg-[#0a0a1a] border-b border-blue-900/30">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="bg-blue-600 hexagon w-10 h-10 flex items-center justify-center mr-3">
+                    <span class="text-white font-bold">LD</span>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold gradient-text">LinguaDigiTech</h1>
+                    <p class="text-xs text-blue-400">语言数字人文研究平台</p>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex space-x-6 text-sm">
+                <a href="#theory" class="text-blue-300 hover:text-blue-100 transition">理论探索</a>
+                <a href="#applications" class="text-blue-300 hover:text-blue-100 transition">应用研究</a>
+                <a href="#tools" class="text-blue-300 hover:text-blue-100 transition">数字工具</a>
+                <a href="#resources" class="text-blue-300 hover:text-blue-100 transition">数据资源</a>
+                <a href="#community" class="text-blue-300 hover:text-blue-100 transition">研究社区</a>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <button class="bg-blue-900/50 hover:bg-blue-800 text-blue-100 px-3 py-1 rounded text-sm border border-blue-700/50 transition">登录</button>
+                <button class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-1 rounded text-sm hover:from-blue-700 hover:to-purple-700 transition">注册</button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 英雄区域 -->
+    <header class="relative min-h-screen flex items-center py-20">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute w-[800px] h-[800px] rounded-full bg-blue-900/20 blur-3xl -top-[400px] -right-[400px]"></div>
+            <div class="absolute w-[600px] h-[600px] rounded-full bg-purple-900/20 blur-3xl -bottom-[300px] -left-[300px]"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 grid md:grid-cols-2 gap-12 relative z-10">
+            <div class="flex flex-col justify-center">
+                <div class="inline-block px-3 py-1 rounded-full bg-blue-900/30 border border-blue-700/30 text-blue-400 text-xs mb-6">
+                    基于雷蕾教授框架 | 语言数字人文
+                </div>
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                    <span class="gradient-text">重新定义</span>
+                    <span class="block mt-2">语言研究的数字未来</span>
+                </h1>
+                <p class="text-blue-200 mb-8 text-lg">
+                    LinguaDigiTech是一个融合语言学、计算科学与人文研究的综合平台，提供数据分析、文本挖掘和可视化工具，支持从理论探索到应用实践的完整研究生态系统。
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <button class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-md font-medium hover:from-blue-700 hover:to-purple-700 transition">
+                        开始研究
+                    </button>
+                    <button class="bg-transparent border border-blue-600 text-blue-400 px-6 py-3 rounded-md font-medium hover:bg-blue-900/20 transition">
+                        了解框架
+                    </button>
+                </div>
+                
+                <div class="flex flex-wrap gap-6 mt-12">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-blue-900/50 flex items-center justify-center mr-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-white text-sm font-medium">研究论文</h3>
+                            <p class="text-blue-400 text-xs">1,200+ 发表</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-blue-900/50 flex items-center justify-center mr-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-white text-sm font-medium">研究者</h3>
+                            <p class="text-blue-400 text-xs">3,500+ 活跃用户</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-blue-900/50 flex items-center justify-center mr-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-white text-sm font-medium">数据分析</h3>
+                            <p class="text-blue-400 text-xs">50TB+ 语料库</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex items-center justify-center relative">
+                <div class="chart-placeholder w-full aspect-square max-w-lg rounded-xl relative overflow-hidden">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-blue-500/60 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                            </svg>
+                            <p class="text-blue-300 text-sm">语言数字人文研究框架</p>
+                            <p class="text-blue-500 text-xs mt-1">交互式数据可视化</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 装饰性元素 -->
+                <div class="absolute -right-4 top-1/4 w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg opacity-70 blur"></div>
+                <div class="absolute -left-6 bottom-1/4 w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg opacity-70 blur"></div>
+                <div class="absolute top-4 left-1/4 w-8 h-8 border border-blue-500/50 rounded-lg animate-pulse"></div>
+                <div class="absolute bottom-8 right-1/4 w-10 h-10 border border-purple-500/50 rounded-full animate-pulse" style="animation-delay: 1s"></div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- 理论探索部分 -->
+    <section id="theory" class="py-20 relative">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute w-[600px] h-[600px] rounded-full bg-indigo-900/10 blur-3xl top-[20%] -left-[300px]"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">理论探索</h2>
+                <p class="text-blue-300 max-w-2xl mx-auto">构建数字人文领域理论基础与学科体系，推动学科创新与发展</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="tech-panel p-6">
+                    <div class="w-12 h-12 rounded-lg bg-blue-900/70 flex items-center justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-white">学科建设</h3>
+                    <p class="text-blue-200 mb-4">探索语言数字人文的学科定位、研究范式与方法论，建立独立学科体系。</p>
+                    <ul class="text-sm text-blue-300 space-y-2">
+                        <li class="flex items-center">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></span>
+                            独有的研究对象
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></span>
+                            独特的研究方法
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></span>
+                            独立的理论体系
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="tech-panel p-6">
+                    <div class="w-12 h-12 rounded-lg bg-blue-900/70 flex items-center justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-white">社区构建</h3>
+                    <p class="text-blue-200 mb-4">促进跨学科协作与知识共享，构建多元融合的研究社区与协作网络。</p>
+                    <ul class="text-sm text-blue-300 space-y-2">
+                        <li class="flex items-center">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></span>
+                            学术交流与合作
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></span>
+                            跨学科研究团队
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></span>
+                            国际合作网络
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="tech-panel p-6">
+                    <div class="w-12 h-12 rounded-lg bg-blue-900/70 flex items-center justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-white">语言学理论探索</h3>
+                    <p class="text-blue-200 mb-4">重新审视语言学理论在数字时代的演化与发展，构建新型研究范式。</p>
+                    <ul class="text-sm text-blue-300 space-y-2">
+                        <li class="flex items-center">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></span>
+                            数字语言学理论
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></span>
+                            计算语言学方法论
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></span>
+                            语言大数据研究
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 应用研究部分 -->
+    <section id="applications" class="py-20 bg-gradient-to-b from-[#0a0a1a] to-[#0f0f2a]">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">应用研究</h2>
+                <p class="text-blue-300 max-w-2xl mx-auto">将数字技术与语言研究深度融合，拓展传统研究的边界与可能性</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 gradient-text">研究对象</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="tech-panel p-4">
+                            <h4 class="text-lg font-medium mb-3 text-white">语言本体</h4>
+                            <p class="text-sm text-blue-300">通过数字工具分析语言结构、演变规律与使用特征</p>
+                        </div>
+                        <div class="tech-panel p-4">
+                            <h4 class="text-lg font-medium mb-3 text-white">二语习得与教学</h4>
+                            <p class="text-sm text-blue-300">利用数据驱动方法优化语言教学与学习过程</p>
+                        </div>
+                        <div class="tech-panel p-4">
+                            <h4 class="text-lg font-medium mb-3 text-white">文学研究</h4>
+                            <p class="text-sm text-blue-300">数字化分析文学作品的语言特征、主题与风格</p>
+                        </div>
+                        <div class="tech-panel p-4">
+                            <h4 class="text-lg font-medium mb-3 text-white">翻译研究</h4>
+                            <p class="text-sm text-blue-300">探索翻译过程与结果的数字化评估与分析</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <button class="text-blue-400 text-sm flex items-center hover:text-blue-300 transition">
+                            查看更多研究领域
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 gradient-text">实例项目</h3>
+                    <div class="tech-panel p-6">
+                        <div class="flex items-start mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-blue-900/70 flex items-center justify-center flex-shrink-0 mr-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-medium">中国社交媒体语言变异研究</h4>
+                                <p class="text-sm text-blue-400">2024年度重点项目</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-blue-200 mb-4">
+                            通过大规模语料库分析，研究中国社交媒体平台上的语言创新与变异现象，揭示数字环境下汉语的演变规律与特点。
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs bg-blue-900/30 text-blue-300 px-2 py-1 rounded">社交媒体语言</span>
+                            <span class="text-xs bg-blue-900/30 text-blue-300 px-2 py-1 rounded">网络新词</span>
+                            <span class="text-xs bg-blue-900/30 text-blue-300 px-2 py-1 rounded">语言变异</span>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-panel p-6 mt-4">
+                        <div class="flex items-start mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-blue-900/70 flex items-center justify-center flex-shrink-0 mr-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-medium">多模态文学翻译语料库</h4>
+                                <p class="text-sm text-blue-400">国际合作项目</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-blue-200 mb-4">
+                            构建包含文本、音频和视觉注释的多语言文学翻译平行语料库，支持跨语言、跨文化的翻译研究与教学。
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs bg-blue-900/30 text-blue-300 px-2 py-1 rounded">多模态</span>
+                            <span class="text-xs bg-blue-900/30 text-blue-300 px-2 py-1 rounded">翻译语料库</span>
+                            <span class="text-xs bg-blue-900/30 text-blue-300 px-2 py-1 rounded">跨文化传播</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-[#12123c]/50 border border-blue-900/30 rounded-xl p-8">
+                <h3 class="text-2xl font-semibold mb-6 text-center gradient-text">研究方法集成</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto rounded-lg bg-blue-900/50 flex items-center justify-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-medium text-white mb-2">统计分析</h4>
+                        <p class="text-sm text-blue-300">参数和非参数检验方法</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto rounded-lg bg-blue-900/50 flex items-center justify-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-medium text-white mb-2">文本分析</h4>
+                        <p class="text-sm text-blue-300">关键词、搭配与情感分析</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto rounded-lg bg-blue-900/50 flex items-center justify-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-medium text-white mb-2">机器学习</h4>
+                        <p class="text-sm text-blue-300">回归、分类与深度学习模型</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto rounded-lg bg-blue-900/50 flex items-center justify-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-medium text-white mb-2">网络分析</h4>
+                        <p class="text-sm text-blue-300">社会网络与复杂网络研究</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 数字工具部分 -->
+    <section id="tools" class="py-20 relative">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute w-[700px] h-[700px] rounded-full bg-purple-900/10 blur-3xl top-[30%] -right-[350px]"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">数字工具</h2>
+                <p class="text-blue-300 max-w-2xl mx-auto">强大的分析工具集，助力语言数字人文研究从数据采集到成果可视化的全流程</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="tech-panel p-6 tool-card">
+                    <div class="w-14 h-14 rounded-lg bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center mb-5 tool-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-white">语料库分析工具</h3>
+                    <p class="text-sm text-blue-200 mb-4">
+                        集成词频统计、搭配分析、关键词提取等语料库分析功能，支持大规模文本数据处理与挖掘。
+                    </p>
+                    <ul class="text-sm text-blue-300 space-y-3 mb-6">
+                        <li class="flex items-start">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-1.5"></span>
+                            <span>关键词提取与搭配分析</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-1.5"></span>
+                            <span>语言复杂度计算</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-1.5"></span>
+                            <span>多语言文本对比</span>
+                        </li>
+                    </ul>
+                    <button class="w-full py-2 border border-blue-600 text-blue-400 rounded-md text-sm hover:bg-blue-900/20 transition">
+                        立即使用
+                    </button>
+                </div>
+                
+                <div class="tech-panel p-6 tool-card">
+                    <div class="w-14 h-14 rounded-lg bg-gradient-to-br from-purple-600 to-purple-800 flex items-center justify-center mb-5 tool-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-white">NLP工具套件</h3>
+                    <p class="text-sm text-blue-200 mb-4">
+                        提供分词、词性标注、句法分析、语义角色标注等自然语言处理功能，支持多语言文本分析。
+                    </p>
+                    <ul class="text-sm text-blue-300 space-y-3 mb-6">
+                        <li class="flex items-start">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-1.5"></span>
+                            <span>多语言分词与词性标注</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-1.5"></span>
+                            <span>依存句法与语义分析</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-1.5"></span>
+                            <span>实体识别与情感分析</span>
+                        </li>
+                    </ul>
+                    <button class="w-full py-2 border border-blue-600 text-blue-400 rounded-md text-sm hover:bg-blue-900/20 transition">
+                        立即使用
+                    </button>
+                </div>
+                
+                <div class="tech-panel p-6 tool-card">
+                    <div class="w-14 h-14 rounded-lg bg-gradient-to-br from-cyan-600 to-cyan-800 flex items-center justify-center mb-5 tool-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-white">可视化与统计分析</h3>
+                    <p class="text-sm text-blue-200 mb-4">
+                        结合统计检验与数据可视化，直观呈现语言特征与模式，支持研究成果的展示与解读。
+                    </p>
+                    <ul class="text-sm text-blue-300 space-y-3 mb-6">
+                        <li class="flex items-start">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-1.5"></span>
+                            <span>参数与非参数统计检验</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-1.5"></span>
+                            <span>交互式数据可视化</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-1.5"></span>
+                            <span>网络关系图谱生成</span>
+                        </li>
+                    </ul>
+                    <button class="w-full py-2 border border-blue-600 text-blue-400 rounded-md text-sm hover:bg-blue-900/20 transition">
+                        立即使用
+                    </button>
+                </div>
+            </div>
+            
+            <div class="mt-12 flex justify-center">
+                <button class="bg-blue-600/30 hover:bg-blue-600/50 text-blue-200 px-6 py-3 rounded-md font-medium transition flex items-center">
+                    探索更多研究工具
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 数据资源部分 -->
+    <section id="resources" class="py-20 bg-gradient-to-b from-[#0f0f2a] to-[#0a0a1a]">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">数据资源</h2>
+                <p class="text-blue-300 max-w-2xl mx-auto">丰富多样的语言语料库与数据集，为语言数字人文研究提供高质量数据支持</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-[#12123c]/50 border border-blue-900/30 rounded-xl p-6 hover:border-blue-700/50 transition">
+                    <div class="flex items-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+                        </svg>
+                        <h3 class="text-lg font-semibold text-white">多语言平行语料库</h3>
+                    </div>
+                    <p class="text-sm text-blue-200 mb-4">
+                        包含中英日韩等10种语言的平行语料库，支持跨语言对比研究与翻译研究，覆盖新闻、文学、学术等多种文本类型。
+                    </p>
+                    <div class="flex justify-between text-xs text-blue-300 mb-4">
+                        <span>数据量: 5亿词对</span>
+                        <span>更新: 2025-02</span>
+                    </div>
+                    <button class="w-full py-2 text-sm bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-md hover:from-blue-700 hover:to-blue-800 transition">
+                        申请访问
+                    </button>
+                </div>
+                
+                <div class="bg-[#12123c]/50 border border-blue-900/30 rounded-xl p-6 hover:border-blue-700/50 transition">
+                    <div class="flex items-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <h3 class="text-lg font-semibold text-white">历时语言变化语料库</h3>
+                    </div>
+                    <p class="text-sm text-blue-200 mb-4">
+                        收录从古至今的汉语文献，展现汉语在不同历史时期的发展变化，支持语言演变研究与历史语言学研究。
+                    </p>
+                    <div class="flex justify-between text-xs text-blue-300 mb-4">
+                        <span>时间跨度: 先秦-现代</span>
+                        <span>文献数: 15,000+</span>
+                    </div>
+                    <button class="w-full py-2 text-sm bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-md hover:from-blue-700 hover:to-blue-800 transition">
+                        申请访问
+                    </button>
+                </div>
+                
+                <div class="bg-[#12123c]/50 border border-blue-900/30 rounded-xl p-6 hover:border-blue-700/50 transition">
+                    <div class="flex items-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                        </svg>
+                        <h3 class="text-lg font-semibold text-white">社交媒体语言数据集</h3>
+                    </div>
+                    <p class="text-sm text-blue-200 mb-4">
+                        收集微博、知乎、B站等平台的用户语言数据，支持网络语言研究、社交媒体话语分析与新词语研究。
+                    </p>
+                    <div class="flex justify-between text-xs text-blue-300 mb-4">
+                        <span>平台覆盖: 6个主流平台</span>
+                        <span>数据量: 2亿条</span>
+                    </div>
+                    <button class="w-full py-2 text-sm bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-md hover:from-blue-700 hover:to-blue-800 transition">
+                        申请访问
+                    </button>
+                </div>
+                
+                <div class="bg-[#12123c]/50 border border-blue-900/30 rounded-xl p-6 hover:border-blue-700/50 transition">
+                    <div class="flex items-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                        </svg>
+                        <h3 class="text-lg font-semibold text-white">学习者语言语料库</h3>
+                    </div>
+                    <p class="text-sm text-blue-200 mb-4">
+                        收集国际学生学习汉语及中国学生学习英语等外语的语料，支持二语习得研究与语言教学研究。
+                    </p>
+                    <div class="flex justify-between text-xs text-blue-300 mb-4">
+                        <span>学习者来源: 85个国家/地区</span>
+                        <span>语言水平: 初级-高级</span>
+                    </div>
+                    <button class="w-full py-2 text-sm bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-md hover:from-blue-700 hover:to-blue-800 transition">
+                        申请访问
+                    </button>
+                </div>
+                
+                <div class="bg-[#12123c]/50 border border-blue-900/30 rounded-xl p-6 hover:border-blue-700/50 transition">
+                    <div class="flex items-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                        <h3 class="text-lg font-semibold text-white">文学作品语料库</h3>
+                    </div>
+                    <p class="text-sm text-blue-200 mb-4">
+                        收录中外经典文学作品，支持文体风格研究、作家语言特征分析与文学计算研究。
+                    </p>
+                    <div class="flex justify-between text-xs text-blue-300 mb-4">
+                        <span>作品数: 12,000+</span>
+                        <span>作家覆盖: 1,500+</span>
+                    </div>
+                    <button class="w-full py-2 text-sm bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-md hover:from-blue-700 hover:to-blue-800 transition">
+                        申请访问
+                    </button>
+                </div>
+                
+                <div class="bg-[#12123c]/50 border border-blue-900/30 rounded-xl p-6 hover:border-blue-700/50 transition">
+                    <div class="flex items-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                        </svg>
+                        <h3 class="text-lg font-semibold text-white">多模态对话语料库</h3>
+                    </div>
+                    <p class="text-sm text-blue-200 mb-4">
+                        收集包含文本、语音、视频的多模态对话数据，支持对话分析、会话结构研究与情感识别研究。
+                    </p>
+                    <div class="flex justify-between text-xs text-blue-300 mb-4">
+                        <span>对话时长: 5,000小时</span>
+                        <span>情景覆盖: 日常/专业/商务</span>
+                    </div>
+                    <button class="w-full py-2 text-sm bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-md hover:from-blue-700 hover:to-blue-800 transition">
+                        申请访问
+                    </button>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <a href="#" class="inline-block bg-blue-600/30 hover:bg-blue-600/50 text-blue-200 px-6 py-3 rounded-md font-medium transition">
+                    浏览完整数据目录
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 研究社区部分 -->
+    <section id="community" class="py-20 relative">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute w-[700px] h-[700px] rounded-full bg-blue-900/10 blur-3xl top-[40%] -left-[350px]"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">研究社区</h2>
+                <p class="text-blue-300 max-w-2xl mx-auto">连接全球语言数字人文研究者，促进跨学科交流与合作</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 gradient-text">即将举办的学术活动</h3>
+                    
+                    <div class="tech-panel p-6 mb-4">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="text-lg font-medium text-white">2025语言数字人文国际研讨会</h4>
+                            <span class="bg-blue-900/50 text-blue-300 text-xs px-2 py-1 rounded">线上+线下</span>
+                        </div>
+                        <p class="text-sm text-blue-200 mb-3">
+                            探讨语言数字人文最新研究进展与未来发展方向，促进国际学术交流与合作。
+                        </p>
+                        <div class="flex justify-between text-xs text-blue-400 mb-4">
+                            <span>时间: 2025-06-15 至 2025-06-18</span>
+                            <span>主办: 北京大学</span>
+                        </div>
+                        <button class="text-blue-400 text-sm hover:text-blue-300 transition flex items-center">
+                            查看详情
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="tech-panel p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="text-lg font-medium text-white">语言大数据分析工作坊</h4>
+                            <span class="bg-blue-900/50 text-blue-300 text-xs px-2 py-1 rounded">线上</span>
+                        </div>
+                        <p class="text-sm text-blue-200 mb-3">
+                            介绍语言大数据分析方法与工具，提供实践操作指导，提升研究者数据分析能力。
+                        </p>
+                        <div class="flex justify-between text-xs text-blue-400 mb-4">
+                            <span>时间: 2025-04-20 至 2025-04-22</span>
+                            <span>主办: 复旦大学</span>
+                        </div>
+                        <button class="text-blue-400 text-sm hover:text-blue-300 transition flex items-center">
+                            查看详情
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 gradient-text">合作机构</h3>
+                    
+                    <div class="bg-[#12123c]/50 border border-blue-900/30 rounded-xl p-6">
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="flex flex-col items-center text-center">
+                                <div class="w-20 h-20 rounded-lg bg-blue-900/30 flex items-center justify-center mb-3">
+                                    <span class="text-blue-300 text-xl font-bold">PKU</span>
+                                </div>
+                                <h5 class="text-white text-sm font-medium">北京大学</h5>
+                                <p class="text-blue-400 text-xs">语言数字人文研究中心</p>
+                            </div>
+                            
+                            <div class="flex flex-col items-center text-center">
+                                <div class="w-20 h-20 rounded-lg bg-blue-900/30 flex items-center justify-center mb-3">
+                                    <span class="text-blue-300 text-xl font-bold">FDU</span>
+                                </div>
+                                <h5 class="text-white text-sm font-medium">复旦大学</h5>
+                                <p class="text-blue-400 text-xs">文本计算实验室</p>
+                            </div>
+                            
+                            <div class="flex flex-col items-center text-center">
+                                <div class="w-20 h-20 rounded-lg bg-blue-900/30 flex items-center justify-center mb-3">
+                                    <span class="text-blue-300 text-xl font-bold">MIT</span>
+                                </div>
+                                <h5 class="text-white text-sm font-medium">麻省理工学院</h5>
+                                <p class="text-blue-400 text-xs">计算语言学研究所</p>
+                            </div>
+                            
+                            <div class="flex flex-col items-center text-center">
+                                <div class="w-20 h-20 rounded-lg bg-blue-900/30 flex items-center justify-center mb-3">
+                                    <span class="text-blue-300 text-xl font-bold">UCL</span>
+                                </div>
+                                <h5 class="text-white text-sm font-medium">伦敦大学学院</h5>
+                                <p class="text-blue-400 text-xs">数字人文中心</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 text-center">
+                            <button class="text-blue-400 text-sm hover:text-blue-300 transition">
+                                查看全部合作机构 (25+)
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-panel p-6 mt-6">
+                        <h4 class="text-lg font-medium text-white mb-4">加入我们的研究网络</h4>
+                        <p class="text-sm text-blue-200 mb-4">
+                            成为语言数字人文研究网络的一员，获取最新研究资源，参与跨学科合作，拓展学术视野。
+                        </p>
+                        <button class="w-full py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-md text-sm hover:from-blue-700 hover:to-purple-700 transition">
+                            申请加入
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="text-2xl font-semibold mb-6 text-center gradient-text">研究成果展示</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="tech-panel p-6">
+                        <div class="flex items-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                            </svg>
+                            <h4 class="text-lg font-medium text-white">学术论文</h4>
+                        </div>
+                        <ul class="text-sm text-blue-200 space-y-3">
+                            <li>
+                                <a href="#" class="hover:text-blue-100 transition">中国社交媒体语言变异研究：基于大数据的分析</a>
+                                <p class="text-xs text-blue-400">《计算语言学》, 2025, 36(2)</p>
+                            </li>
+                            <li>
+                                <a href="#" class="hover:text-blue-100 transition">二语习得过程中的语言复杂度发展轨迹：多维度分析</a>
+                                <p class="text-xs text-blue-400">《外语教学与研究》, 2024, 56(4)</p>
+                            </li>
+                            <li>
+                                <a href="#" class="hover:text-blue-100 transition">基于深度学习的古汉语文本自动标注研究</a>
+                                <p class="text-xs text-blue-400">《中国语文》, 2024, 401(5)</p>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tech-panel p-6">
+                        <div class="flex items-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                            </svg>
+                            <h4 class="text-lg font-medium text-white">数据可视化</h4>
+                        </div>
+                        <ul class="text-sm text-blue-200 space-y-3">
+                            <li>
+                                <a href="#" class="hover:text-blue-100 transition">汉语历时演变可视化系统</a>
+                                <p class="text-xs text-blue-400">交互式时间轴展示汉语词汇、语法的历史变化</p>
+                            </li>
+                            <li>
+                                <a href="#" class="hover:text-blue-100 transition">文学作品语言网络分析</a>
+                                <p class="text-xs text-blue-400">基于复杂网络的文学作品人物关系与主题分析</p>
+                            </li>
+                            <li>
+                                <a href="#" class="hover:text-blue-100 transition">全球汉语学习者语言地图</a>
+                                <p class="text-xs text-blue-400">展示不同母语背景学习者的汉语习得特点</p>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tech-panel p-6">
+                        <div class="flex items-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <h4 class="text-lg font-medium text-white">开源工具</h4>
+                        </div>
+                        <ul class="text-sm text-blue-200 space-y-3">
+                            <li>
+                                <a href="#" class="hover:text-blue-100 transition">ChineseNLP Tool</a>
+                                <p class="text-xs text-blue-400">针对汉语特点的自然语言处理工具包</p>
+                            </li>
+                            <li>
+                                <a href="#" class="hover:text-blue-100 transition">LinguaVis</a>
+                                <p class="text-xs text-blue-400">语言数据可视化框架，支持多种语言特征展示</p>
+                            </li>
+                            <li>
+                                <a href="#" class="hover:text-blue-100 transition">CorpusAnalyzer</a>
+                                <p class="text-xs text-blue-400">语料库分析与标注工具，支持多语言处理</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 加入我们 -->
+    <section class="py-20 bg-gradient-to-r from-blue-900/20 to-purple-900/20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">加入语言数字人文研究社区</h2>
+            <p class="text-blue-200 max-w-2xl mx-auto mb-8">
+                成为语言数字人文研究的一员，探索语言与文化在数字时代的新形态与新可能。
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <button class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-md font-medium hover:from-blue-700 hover:to-purple-700 transition">
+                    注册账号
+                </button>
+                <button class="bg-transparent border border-blue-600 text-blue-400 px-6 py-3 rounded-md font-medium hover:bg-blue-900/20 transition">
+                    了解更多
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 页脚 -->
+    <footer class="bg-[#070722] text-white py-12 border-t border-blue-900/30">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-600 hexagon w-8 h-8 flex items-center justify-center mr-3">
+                            <span class="text-white font-bold text-sm">LD</span>
+                        </div>
+                        <h3 class="text-lg font-bold gradient-text">LinguaDigiTech</h3>
+                    </div>
+                    <p class="text-sm text-blue-300 mb-4">
+                        语言数字人文研究平台，连接语言学、计算科学与人文研究的桥梁。
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-blue-400 hover:text-blue-300 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-blue-400 hover:text-blue-300 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                
