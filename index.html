@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数智人文 - 数字时代的人文研究</title>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+        
+        * {
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .parallax {
+            transform: translateY(0);
+            transition: transform 0.1s ease-out;
+        }
+        
+        .hover-scale {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #e5e7eb, transparent);
+        }
+
+        /* 新增动画效果 */
+        .tech-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, rgba(102,126,234,0.1) 1px, transparent 1px),
+                linear-gradient(0deg, rgba(102,126,234,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(500px) rotateX(60deg);
+            transform-origin: top;
+            animation: grid-move 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes grid-move {
+            0% {
+                transform: perspective(500px) rotateX(60deg) translateY(0);
+            }
+            100% {
+                transform: perspective(500px) rotateX(60deg) translateY(50px);
+            }
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .glow {
+            box-shadow: 0 0 20px rgba(102,126,234,0.3);
+        }
+
+        .glow:hover {
+            box-shadow: 0 0 30px rgba(102,126,234,0.5);
+        }
+
+        .tech-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(102,126,234,0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .cyber-button {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cyber-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .cyber-button:hover::before {
+            left: 100%;
+        }
+
+        .cyber-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+
+        .data-flow {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .data-flow::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(102,126,234,0.1),
+                transparent
+            );
+            animation: flow 2s linear infinite;
+        }
+
+        @keyframes flow {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* 粒子特效和主题切换样式 */
+        :root {
+          --bg-color: #ffffff;
+          --text-color: #222222;
+          --particle-color: #00cfff;
+        }
+        [data-theme="dark"] {
+          --bg-color: #181818;
+          --text-color: #f5f5f5;
+          --particle-color: #00fff7;
+        }
+        body {
+          background: var(--bg-color);
+          color: var(--text-color);
+          transition: background 0.3s, color 0.3s;
+        }
+        #particles-js {
+          position: fixed;
+          top: 0; left: 0;
+          width: 100vw; height: 100vh;
+          z-index: -1;
+          pointer-events: none;
+        }
+        .theme-btn {
+          position: fixed;
+          top: 20px; right: 30px;
+          padding: 10px 24px;
+          font-size: 16px;
+          border: none;
+          border-radius: 20px;
+          background: #00cfff;
+          color: #fff;
+          cursor: pointer;
+          transition: background 0.3s;
+          z-index: 1000;
+        }
+        [data-theme="dark"] .theme-btn {
+          background: #00fff7;
+          color: #181818;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900 overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 nav-blur bg-white/80 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-brain text-2xl gradient-text"></i>
+                    <span class="text-xl font-bold gradient-text">数智人文</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-blue-600 transition-colors">首页</a>
+                    <a href="#research" class="text-gray-700 hover:text-blue-600 transition-colors">研究框架</a>
+                    <a href="#literature" class="text-gray-700 hover:text-blue-600 transition-colors">文学研究</a>
+                    <a href="#tools" class="text-gray-700 hover:text-blue-600 transition-colors">工具平台</a>
+                    <a href="#analysis" class="text-gray-700 hover:text-blue-600 transition-colors">数据分析</a>
+                    <a href="#infrastructure" class="text-gray-700 hover:text-blue-600 transition-colors">基础设施</a>
+                    <a href="#resources" class="text-gray-700 hover:text-blue-600 transition-colors">权威资源</a>
+                    <button id="loginBtn" class="text-gray-700 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-user mr-1"></i>登录
+                    </button>
+                </div>
+                <button class="md:hidden">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="tech-grid"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50 opacity-80"></div>
+        <div class="relative z-10 text-center px-4 max-w-6xl mx-auto">
+            <div class="fade-in">
+                <h1 class="text-6xl md:text-8xl font-bold mb-8">
+                    <span class="gradient-text floating">数智人文</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+                    探索数字时代人文研究的新边界，融合大数据、人工智能与传统人文学科，开启智慧人文新纪元    
+                </p>
+                <button class="cyber-button text-lg font-medium">
+                    开始探索 <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-2xl text-gray-400"></i>
+        </div>
+    </section>
+
+    <!-- Research Framework Section -->
+    <section id="research" class="py-20 bg-white relative overflow-hidden">
+        <div class="tech-grid opacity-30"></div>
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 gradient-text">研究框架</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">构建系统性的数字人文研究体系</p>
+                <div class="section-divider mt-8"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="fade-in hover-scale tech-card bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl">
+                    <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-6 glow">
+                        <i class="fas fa-history text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">数字人文的缘起</h3>
+                    <p class="text-gray-600 mb-4">追溯数字人文学科的发展历程与理论基础，探索跨学科合作的新模式</p>
+                    <div class="space-y-2">
+                        <a href="pages/数字人文缘起.html" class="text-blue-600 font-medium hover:underline block">基础理论 →</a>
+                        <a href="pages/语言数字人文研究框架.html" class="text-blue-600 font-medium hover:underline block">语言研究框架 →</a>
+                        <a href="pages/大数据与人文研究的交汇.html" class="text-blue-600 font-medium hover:underline block">大数据交汇 →</a>
+                    </div>
+                </div>
+                
+                <div class="fade-in hover-scale tech-card bg-gradient-to-br from-purple-50 to-purple-100 p-8 rounded-2xl">
+                    <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mb-6 glow">
+                        <i class="fas fa-sync-alt text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">数智人文转型</h3>
+                    <p class="text-gray-600 mb-4">从传统细读到远观的范式革命，探索数智时代的人文研究新方法</p>
+                    <div class="space-y-2">
+                        <a href="pages/数智人文转型.html" class="text-purple-600 font-medium hover:underline block">转型路径 →</a>
+                        <a href="pages/远读与细读：数字人文的双翼N.html" class="text-purple-600 font-medium hover:underline block">远读与细读 →</a>
+                        <a href="pages/远读与可伸缩阅读  数字人文视角.html" class="text-purple-600 font-medium hover:underline block">可伸缩阅读 →</a>
+                    </div>
+                </div>
+                
+                <div class="fade-in hover-scale tech-card bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-2xl">
+                    <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mb-6 glow">
+                        <i class="fas fa-database text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">数字人文与数据科学</h3>
+                    <p class="text-gray-600 mb-4">促进知识生产方式的四个转型，从文本到数据的研究革命</p>
+                    <div class="space-y-2">
+                        <a href="pages/数字人文与数据科学.html" class="text-green-600 font-medium hover:underline block">数据科学 →</a>
+                        <a href="pages/数据海洋中的人文航行.html" class="text-green-600 font-medium hover:underline block">数据海洋 →</a>
+                        <a href="pages/大数据的边界与责任.html" class="text-green-600 font-medium hover:underline block">边界责任 →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Literature Research Section -->
+    <section id="literature" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 gradient-text">文学研究</h2>
+                <p class="text-xl text-gray-600">数字时代文学研究的创新与发展</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                <div class="fade-in">
+                    <h3 class="text-3xl font-bold mb-6">文学创新与翻译</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mt-1">
+                                <i class="fas fa-language text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-2">数字人文与文学翻译创新</h4>
+                                <p class="text-gray-600">生成式AI与数字人文的深度融合，三重阅读框架的应用</p>
+                                <div class="space-y-2 mt-2">
+                                    <a href="pages/数字人文与文学翻译创新.html" class="text-blue-600 text-sm hover:underline block">数字人文与翻译创新 →</a>
+                                    <a href="pages/语料库语言学：阅读索引行分析.html" class="text-blue-600 text-sm hover:underline block">语料库分析 →</a>
+                                    <a href="pages/语料库语言学与现代网页技术.html" class="text-blue-600 text-sm hover:underline block">语料库语言学 →</a>
+                                    <a href="pages/ANA Demo.html" class="text-blue-600 text-sm hover:underline block">情感叙事系统 →</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fade-in">
+                    <div class="bg-white rounded-2xl p-8 shadow-lg">
+                        <div class="text-center mb-6">
+                            <i class="fas fa-book-open text-6xl gradient-text"></i>
+                            <h4 class="text-2xl font-bold mt-4 mb-2">智能文学分析</h4>
+                            <p class="text-gray-600">融合传统人文精神与现代技术手段</p>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-medium">远读分析</span>
+                                <span class="text-sm text-gray-500">95%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-blue-600 h-2 rounded-full" style="width: 95%"></div>
+                            </div>
+                            
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-medium">情感分析</span>
+                                <span class="text-sm text-gray-500">88%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-purple-600 h-2 rounded-full" style="width: 88%"></div>
+                            </div>
+                            
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-medium">主题建模</span>
+                                <span class="text-sm text-gray-500">92%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-600 h-2 rounded-full" style="width: 92%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Literature Assessment Cards -->
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="fade-in hover-scale bg-white p-8 rounded-2xl shadow-lg">
+                    <div class="w-16 h-16 bg-indigo-600 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-microscope text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">数字时代文学的科学性审视</h3>
+                    <p class="text-gray-600 mb-4">探讨文学在数字时代的科学性与人文性交叉融合，分析数字人文研究的发展现状</p>
+                    <div class="text-sm text-gray-500 mb-4">
+                        <span class="inline-block bg-gray-100 px-2 py-1 rounded mr-2">语料库工具</span>
+                        <span class="inline-block bg-gray-100 px-2 py-1 rounded mr-2">数据分析</span>
+                        <span class="inline-block bg-gray-100 px-2 py-1 rounded">远读方法</span>
+                    </div>
+                    <a href="pages/数字时代文学的科学性审视.html" class="text-indigo-600 font-medium hover:underline">深入研究 →</a>
+                </div>
+                
+                <div class="fade-in hover-scale bg-white p-8 rounded-2xl shadow-lg">
+                    <div class="w-16 h-16 bg-pink-600 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-heart text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">数字时代文学的人文性评估</h3>
+                    <p class="text-gray-600 mb-4">探讨数字革命背景下文学人文价值的延续与变革，平衡科技与人文精神</p>
+                    <div class="text-sm text-gray-500 mb-4">
+                        <span class="inline-block bg-gray-100 px-2 py-1 rounded mr-2">人文精神</span>
+                        <span class="inline-block bg-gray-100 px-2 py-1 rounded mr-2">价值评估</span>
+                        <span class="inline-block bg-gray-100 px-2 py-1 rounded">创新思维</span>
+                    </div>
+                    <a href="pages/数字时代文学的人文性评估.html" class="text-pink-600 font-medium hover:underline">深入研究 →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools & Methods Section -->
+    <section id="tools" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 gradient-text">研究方法与工具</h2>
+                <p class="text-xl text-gray-600">从传统细读到数字远观的方法论革新</p>
+                <div class="section-divider mt-8"></div>
+            </div>
+            
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- 三重阅读框架 -->
+                <div class="fade-in">
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 h-full">
+                        <div class="text-center mb-6">
+                            <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-layer-group text-white text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">三重阅读框架</h3>
+                            <p class="text-gray-600 text-sm">远读、中读、近读的综合分析方法</p>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="p-4 bg-white rounded-lg shadow-sm">
+                                <h4 class="font-medium mb-2 text-blue-700">远读阶段</h4>
+                                <p class="text-sm text-gray-600">LDA主题建模、情感分析、核心主题分布</p>
+                                <a href="pages/文本分析知识仪表盘.html" class="text-blue-600 text-sm hover:underline block mt-2">知识仪表盘 →</a>
+                            </div>
+                            <div class="p-4 bg-white rounded-lg shadow-sm">
+                                <h4 class="font-medium mb-2 text-purple-700">中读阶段</h4>
+                                <p class="text-sm text-gray-600">情感节点分析、叙事结构解析、人物关系网络</p>
+                                <a href="pages/文本分析流程知识卡片.html" class="text-purple-600 text-sm hover:underline block mt-2">分析流程 →</a>
+                            </div>
+                            <div class="p-4 bg-white rounded-lg shadow-sm">
+                                <h4 class="font-medium mb-2 text-green-700">近读阶段</h4>
+                                <p class="text-sm text-gray-600">关键段落翻译、隐喻处理、文化词汇转换</p>
+                                <a href="pages/词汇共现与语义网络知识卡片.html" class="text-green-600 text-sm hover:underline block mt-2">语义网络 →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 知识发现链 -->
+                <div class="fade-in">
+                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 h-full">
+                        <div class="text-center mb-6">
+                            <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-link text-white text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">知识发现链</h3>
+                            <p class="text-gray-600 text-sm">从数据到预测的完整流程</p>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm">
+                                <div class="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center text-white text-xs font-bold">1</div>
+                                <span class="text-sm font-medium">数据收集</span>
+                            </div>
+                            <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm">
+                                <div class="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center text-white text-xs font-bold">2</div>
+                                <span class="text-sm font-medium">模式识别</span>
+                            </div>
+                            <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm">
+                                <div class="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center text-white text-xs font-bold">3</div>
+                                <span class="text-sm font-medium">定律发现</span>
+                            </div>
+                            <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm">
+                                <div class="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center text-white text-xs font-bold">4</div>
+                                <span class="text-sm font-medium">理论解释</span>
+                            </div>
+                            <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm">
+                                <div class="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center text-white text-xs font-bold">5</div>
+                                <span class="text-sm font-medium">预测应用</span>
+                            </div>
+                            <a href="pages/NLP与知识图谱知识卡片.html" class="text-purple-600 text-sm hover:underline block mt-2">知识图谱 →</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 翻译智能体 -->
+                <div class="fade-in hover-scale tech-card bg-gradient-to-br from-indigo-50 to-blue-100 p-8 rounded-2xl">
+                    <div class="w-16 h-16 bg-indigo-600 rounded-full flex items-center justify-center mb-6 glow">
+                        <i class="fas fa-robot text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">翻译智能体</h3>
+                    <p class="text-gray-600 mb-4">
+                        基于AI大模型的智能翻译平台，支持多模型对比、术语库管理和"翻译智能体"——可根据不同文本类型和领域，调用文学、技术、创意、学术、本地化等专业化翻译角色，保障术语一致性与翻译质量。
+                    </p>
+                    <div class="space-y-2">
+                        <a href="pages/数智赋能翻译.html" class="text-indigo-600 font-medium hover:underline block">体验翻译智能体 →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Analysis Section -->
+    <section id="analysis" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 gradient-text">数据与分析</h2>
+                <p class="text-xl text-gray-600">从文本到数据的知识生产方式转型</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <h3 class="text-3xl font-bold mb-8">四个核心转型</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4 p-6 bg-white rounded-xl shadow-sm">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-file-alt text-blue-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">从文本到数据</h4>
+                                <p class="text-gray-600">文字、图像文本的数字化、数据化重新定义了人文研究的对象与方式</p>
+                                <a href="pages/自然语言处理工具概览V2.html" class="text-blue-600 text-sm hover:underline block mt-2">NLP工具 →</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4 p-6 bg-white rounded-xl shadow-sm">
+                            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-brain text-purple-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">大数据与智慧数据</h4>
+                                <p class="text-gray-600">海量人文文本是大数据，标记过、结构化的数据才是智慧数据</p>
+                                <a href="pages/语料库工具.html" class="text-purple-600 text-sm hover:underline block mt-2">语料库工具 →</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4 p-6 bg-white rounded-xl shadow-sm">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-search text-green-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">从细读到远读与机读</h4>
+                                <p class="text-gray-600">提供大尺度衡量数据的方法和机器读取、分析人文数据的路径</p>
+                                <a href="pages/地理信息系统工具平台  数字人文与空间分析.html" class="text-green-600 text-sm hover:underline block mt-2">GIS工具 →</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4 p-6 bg-white rounded-xl shadow-sm">
+                            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-chart-bar text-red-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">科学研究方法进入人文</h4>
+                                <p class="text-gray-600">改变传统以抽样、举例、演绎推理为主的经验性研究方法</p>
+                                <a href="pages/科学素养.html" class="text-red-600 text-sm hover:underline block mt-2">科学素养 →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fade-in">
+                    <div class="bg-white rounded-2xl p-8 shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6 text-center">研究数据统计</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="text-center p-6 bg-blue-50 rounded-xl">
+                                <div class="text-4xl font-bold text-blue-600 mb-2">72</div>
+                                <div class="text-sm text-gray-600">1990-2017年中国数字人文相关论文</div>
+                            </div>
+                            
+                            <div class="text-center p-6 bg-purple-50 rounded-xl">
+                                <div class="text-4xl font-bold text-purple-600 mb-2">2000+</div>
+                                <div class="text-sm text-gray-600">机器作家已发表作品数量</div>
+                            </div>
+                            
+                            <div class="text-center p-6 bg-green-50 rounded-xl">
+                                <div class="text-4xl font-bold text-green-600 mb-2">95%</div>
+                                <div class="text-sm text-gray-600">数字化分析准确率</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl">
+                            <h4 class="font-bold mb-3 flex items-center">
+                                <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                                齐普夫定律应用
+                            </h4>
+                            <p class="text-sm text-gray-600">
+                                "看似自由的文学创作，实则遵循着严格的数学秩序" - 
+                                在文学作品中，第n个最常用词的使用频率与最常用词频率的1/n成正比
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Infrastructure Section -->
+    <section id="infrastructure" class="py-20 bg-white relative overflow-hidden">
+        <div class="tech-grid opacity-30"></div>
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 gradient-text">基础设施</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">构建数字人文研究的坚实基石</p>
+                <div class="section-divider mt-8"></div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- 左侧：基础设施概览 -->
+                <div class="fade-in">
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 tech-card">
+                        <h3 class="text-2xl font-bold mb-6">数字人文基础设施</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mt-1 glow">
+                                    <i class="fas fa-server text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-2">计算资源</h4>
+                                    <p class="text-gray-600">高性能计算集群、分布式存储系统、云计算平台</p>
+                                    <a href="pages/数字人文基础设施.html" class="text-blue-600 text-sm hover:underline block mt-2">了解详情 →</a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mt-1 glow">
+                                    <i class="fas fa-database text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-2">数据资源</h4>
+                                    <p class="text-gray-600">数字图书馆、语料库、知识图谱、多模态数据集</p>
+                                    <a href="pages/语料库工具.html" class="text-purple-600 text-sm hover:underline block mt-2">语料库工具 →</a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mt-1 glow">
+                                    <i class="fas fa-code text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-2">软件平台</h4>
+                                    <p class="text-gray-600">文本分析工具、可视化平台、机器学习框架</p>
+                                    <a href="pages/自然语言处理工具概览V2.html" class="text-green-600 text-sm hover:underline block mt-2">NLP工具 →</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右侧：技术架构 -->
+                <div class="fade-in">
+                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 tech-card">
+                        <h3 class="text-2xl font-bold mb-6">技术架构</h3>
+                        <div class="space-y-6">
+                            <div class="p-6 bg-white rounded-xl shadow-sm">
+                                <h4 class="font-bold mb-3 flex items-center">
+                                    <i class="fas fa-layer-group text-purple-600 mr-2"></i>
+                                    基础层
+                                </h4>
+                                <p class="text-gray-600 text-sm">硬件设施、网络环境、存储系统</p>
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm">服务器集群</span>
+                                    <span class="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm">分布式存储</span>
+                                    <span class="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm">高速网络</span>
+                                </div>
+                            </div>
+
+                            <div class="p-6 bg-white rounded-xl shadow-sm">
+                                <h4 class="font-bold mb-3 flex items-center">
+                                    <i class="fas fa-cogs text-blue-600 mr-2"></i>
+                                    平台层
+                                </h4>
+                                <p class="text-gray-600 text-sm">开发框架、中间件、API服务</p>
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">微服务架构</span>
+                                    <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">容器化部署</span>
+                                    <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">API网关</span>
+                                </div>
+                            </div>
+
+                            <div class="p-6 bg-white rounded-xl shadow-sm">
+                                <h4 class="font-bold mb-3 flex items-center">
+                                    <i class="fas fa-puzzle-piece text-green-600 mr-2"></i>
+                                    应用层
+                                </h4>
+                                <p class="text-gray-600 text-sm">研究工具、分析系统、可视化平台</p>
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">文本分析</span>
+                                    <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">知识图谱</span>
+                                    <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">数据可视化</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 基础设施特点 -->
+            <div class="mt-16 grid md:grid-cols-3 gap-8">
+                <div class="fade-in tech-card bg-white p-6 rounded-xl shadow-sm">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center mb-4 glow">
+                        <i class="fas fa-shield-alt text-white text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">安全可靠</h4>
+                    <p class="text-gray-600">多重安全防护机制，确保数据安全和系统稳定</p>
+                </div>
+
+                <div class="fade-in tech-card bg-white p-6 rounded-xl shadow-sm">
+                    <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mb-4 glow">
+                        <i class="fas fa-expand-arrows-alt text-white text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">可扩展性</h4>
+                    <p class="text-gray-600">模块化设计，支持灵活扩展和功能定制</p>
+                </div>
+
+                <div class="fade-in tech-card bg-white p-6 rounded-xl shadow-sm">
+                    <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-blue-500 rounded-full flex items-center justify-center mb-4 glow">
+                        <i class="fas fa-users text-white text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">协作共享</h4>
+                    <p class="text-gray-600">支持多用户协作，促进研究成果共享与交流</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Authoritative Resources Section -->
+    <section id="resources" class="py-20 bg-gray-50 relative overflow-hidden">
+        <div class="tech-grid opacity-20"></div>
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 gradient-text">权威资源</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">国内外数字人文研究的重要平台与资源</p>
+                <div class="section-divider mt-8"></div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- 国内资源 -->
+                <div class="fade-in">
+                    <div class="bg-white rounded-2xl p-8 tech-card">
+                        <h3 class="text-2xl font-bold mb-6 flex items-center">
+                            <i class="fas fa-landmark text-red-500 mr-3"></i>
+                            国内资源
+                        </h3>
+                        <div class="space-y-6">
+                            <div class="p-6 bg-gradient-to-br from-red-50 to-red-100 rounded-xl">
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center mt-1 glow">
+                                        <i class="fas fa-book text-white text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-lg mb-2">中国数字人文研究网</h4>
+                                        <p class="text-gray-600 mb-3">中国数字人文研究的综合性平台，提供学术资源、研究动态和项目展示</p>
+                                        <a href="https://www.dhcn.cn" target="_blank" class="text-red-600 text-sm hover:underline block">访问网站 →</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl">
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mt-1 glow">
+                                        <i class="fas fa-university text-white text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-lg mb-2">北京大学数字人文研究中心</h4>
+                                        <p class="text-gray-600 mb-3">数字人文研究的重要基地，提供丰富的学术资源和研究成果</p>
+                                        <a href="http://dh.pku.edu.cn" target="_blank" class="text-blue-600 text-sm hover:underline block">访问网站 →</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-xl">
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mt-1 glow">
+                                        <i class="fas fa-database text-white text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-lg mb-2">中国数字人文资源库</h4>
+                                        <p class="text-gray-600 mb-3">整合各类数字人文资源，提供数据共享和工具支持</p>
+                                        <a href="http://www.dhresource.org" target="_blank" class="text-green-600 text-sm hover:underline block">访问网站 →</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 国际资源 -->
+                <div class="fade-in">
+                    <div class="bg-white rounded-2xl p-8 tech-card">
+                        <h3 class="text-2xl font-bold mb-6 flex items-center">
+                            <i class="fas fa-globe-americas text-blue-500 mr-3"></i>
+                            国际资源
+                        </h3>
+                        <div class="space-y-6">
+                            <div class="p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl">
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mt-1 glow">
+                                        <i class="fas fa-atom text-white text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-lg mb-2">ADHO - 数字人文组织联盟</h4>
+                                        <p class="text-gray-600 mb-3">国际数字人文领域最具影响力的学术组织，推动全球数字人文发展</p>
+                                        <a href="https://adho.org" target="_blank" class="text-purple-600 text-sm hover:underline block">访问网站 →</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-6 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl">
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center mt-1 glow">
+                                        <i class="fas fa-graduation-cap text-white text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-lg mb-2">Stanford Digital Humanities</h4>
+                                        <p class="text-gray-600 mb-3">斯坦福大学数字人文项目，提供创新研究方法和工具</p>
+                                        <a href="https://digitalhumanities.stanford.edu" target="_blank" class="text-indigo-600 text-sm hover:underline block">访问网站 →</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-6 bg-gradient-to-br from-pink-50 to-pink-100 rounded-xl">
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center mt-1 glow">
+                                        <i class="fas fa-tools text-white text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-lg mb-2">TAPoR - 文本分析与检索门户</h4>
+                                        <p class="text-gray-600 mb-3">提供文本分析工具和方法的综合平台</p>
+                                        <a href="https://tapor.ca" target="_blank" class="text-pink-600 text-sm hover:underline block">访问网站 →</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 资源分类标签 -->
+            <div class="mt-16">
+                <h3 class="text-2xl font-bold mb-8 text-center">资源分类</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- 学术期刊 -->
+                    <div class="bg-white rounded-xl p-6 shadow-sm tech-card">
+                        <h4 class="text-xl font-bold mb-4 flex items-center">
+                            <i class="fas fa-book-open text-blue-500 mr-3"></i>
+                            学术期刊
+                        </h4>
+                        <div class="space-y-4">
+                            <a href="https://www.dhcn.cn/column/数字人文" target="_blank" class="block p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+                                <h5 class="font-bold text-blue-700">《数字人文》</h5>
+                                <p class="text-sm text-gray-600">中国数字人文领域重要学术期刊</p>
+                            </a>
+                            <a href="https://www.digitalhumanities.org/dhq/" target="_blank" class="block p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+                                <h5 class="font-bold text-blue-700">Digital Humanities Quarterly</h5>
+                                <p class="text-sm text-gray-600">国际数字人文领域顶级期刊</p>
+                            </a>
+                            <a href="https://www.journals.uchicago.edu/toc/jdh/current" target="_blank" class="block p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+                                <h5 class="font-bold text-blue-700">Journal of Digital Humanities</h5>
+                                <p class="text-sm text-gray-600">芝加哥大学出版社数字人文期刊</p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- 研究工具 -->
+                    <div class="bg-white rounded-xl p-6 shadow-sm tech-card">
+                        <h4 class="text-xl font-bold mb-4 flex items-center">
+                            <i class="fas fa-tools text-purple-500 mr-3"></i>
+                            研究工具
+                        </h4>
+                        <div class="space-y-4">
+                            <a href="https://www.corpus-analysis.com/" target="_blank" class="block p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors">
+                                <h5 class="font-bold text-purple-700">Corpus Analysis Tools</h5>
+                                <p class="text-sm text-gray-600">语料库语言学工具综合目录，包含286个语料库分析工具</p>
+                            </a>
+                            <a href="https://voyant-tools.org/" target="_blank" class="block p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors">
+                                <h5 class="font-bold text-purple-700">Voyant Tools</h5>
+                                <p class="text-sm text-gray-600">在线文本分析工具集</p>
+                            </a>
+                            <a href="https://www.tapor.ca/" target="_blank" class="block p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors">
+                                <h5 class="font-bold text-purple-700">TAPoR</h5>
+                                <p class="text-sm text-gray-600">文本分析与检索门户</p>
+                            </a>
+                            <a href="https://www.antconc.org/" target="_blank" class="block p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors">
+                                <h5 class="font-bold text-purple-700">AntConc</h5>
+                                <p class="text-sm text-gray-600">语料库分析工具</p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- 数据资源 -->
+                    <div class="bg-white rounded-xl p-6 shadow-sm tech-card">
+                        <h4 class="text-xl font-bold mb-4 flex items-center">
+                            <i class="fas fa-database text-green-500 mr-3"></i>
+                            数据资源
+                        </h4>
+                        <div class="space-y-4">
+                            <a href="https://www.dhcn.cn/resource" target="_blank" class="block p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">
+                                <h5 class="font-bold text-green-700">中国数字人文资源库</h5>
+                                <p class="text-sm text-gray-600">综合性数字人文资源平台</p>
+                            </a>
+                            <a href="https://www.loc.gov/collections/" target="_blank" class="block p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">
+                                <h5 class="font-bold text-green-700">Library of Congress</h5>
+                                <p class="text-sm text-gray-600">美国国会图书馆数字馆藏</p>
+                            </a>
+                            <a href="https://www.europeana.eu/" target="_blank" class="block p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">
+                                <h5 class="font-bold text-green-700">Europeana</h5>
+                                <p class="text-sm text-gray-600">欧洲数字文化遗产平台</p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- 学术社区 -->
+                    <div class="bg-white rounded-xl p-6 shadow-sm tech-card">
+                        <h4 class="text-xl font-bold mb-4 flex items-center">
+                            <i class="fas fa-users text-red-500 mr-3"></i>
+                            学术社区
+                        </h4>
+                        <div class="space-y-4">
+                            <a href="https://www.dhcn.cn/community" target="_blank" class="block p-4 bg-red-50 rounded-lg hover:bg-red-100 transition-colors">
+                                <h5 class="font-bold text-red-700">中国数字人文社区</h5>
+                                <p class="text-sm text-gray-600">国内数字人文研究者交流平台</p>
+                            </a>
+                            <a href="https://www.humanistika.org/" target="_blank" class="block p-4 bg-red-50 rounded-lg hover:bg-red-100 transition-colors">
+                                <h5 class="font-bold text-red-700">Humanistika</h5>
+                                <p class="text-sm text-gray-600">国际数字人文社区</p>
+                            </a>
+                            <a href="https://www.dh-abstracts.org/" target="_blank" class="block p-4 bg-red-50 rounded-lg hover:bg-red-100 transition-colors">
+                                <h5 class="font-bold text-red-700">DH Abstracts</h5>
+                                <p class="text-sm text-gray-600">数字人文研究社区</p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- 学术会议 -->
+                    <div class="bg-white rounded-xl p-6 shadow-sm tech-card">
+                        <h4 class="text-xl font-bold mb-4 flex items-center">
+                            <i class="fas fa-calendar-alt text-indigo-500 mr-3"></i>
+                            学术会议
+                        </h4>
+                        <div class="space-y-4">
+                            <a href="https://www.dhcn.cn/conference" target="_blank" class="block p-4 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors">
+                                <h5 class="font-bold text-indigo-700">中国数字人文年会</h5>
+                                <p class="text-sm text-gray-600">国内数字人文领域重要会议</p>
+                            </a>
+                            <a href="https://dh2024.adho.org/" target="_blank" class="block p-4 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors">
+                                <h5 class="font-bold text-indigo-700">ADHO Conference</h5>
+                                <p class="text-sm text-gray-600">国际数字人文组织年会</p>
+                            </a>
+                            <a href="https://www.dhsi.org/" target="_blank" class="block p-4 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors">
+                                <h5 class="font-bold text-indigo-700">DHSI</h5>
+                                <p class="text-sm text-gray-600">数字人文暑期学院</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <i class="fas fa-brain text-2xl text-blue-400"></i>
+                        <span class="text-xl font-bold">数智人文</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">探索数字时代人文研究的无限可能，融合传统人文精神与现代技术创新</p>
+                    <div class="flex space-x-4">
+                        <i class="fab fa-twitter text-xl text-gray-400 hover:text-blue-400 cursor-pointer transition-colors"></i>
+                        <i class="fab fa-github text-xl text-gray-400 hover:text-blue-400 cursor-pointer transition-colors"></i>
+                        <i class="fab fa-linkedin text-xl text-gray-400 hover:text-blue-400 cursor-pointer transition-colors"></i>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">研究框架</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="pages/数字人文缘起.html" class="hover:text-white transition-colors">数字人文的缘起</a></li>
+                        <li><a href="pages/数智人文转型.html" class="hover:text-white transition-colors">数智人文转型</a></li>
+                        <li><a href="pages/数字人文与数据科学.html" class="hover:text-white transition-colors">数据科学融合</a></li>
+                        <li><a href="pages/语言数字人文研究框架.html" class="hover:text-white transition-colors">语言研究框架</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">文学研究</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="pages/数字人文与文学翻译创新.html" class="hover:text-white transition-colors">翻译创新</a></li>
+                        <li><a href="pages/数字时代文学的科学性审视.html" class="hover:text-white transition-colors">科学性审视</a></li>
+                        <li><a href="pages/数字时代文学的人文性评估.html" class="hover:text-white transition-colors">人文性评估</a></li>
+                        <li><a href="pages/语料库语言学：阅读索引行分析.html" class="hover:text-white transition-colors">语料库分析</a></li>
+                        <li><a href="pages/ANA Demo.html" class="hover:text-white transition-colors">情感叙事系统</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">工具平台</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="pages/自然语言处理工具概览V2.html" class="hover:text-white transition-colors">NLP工具</a></li>
+                        <li><a href="pages/语料库工具.html" class="hover:text-white transition-colors">语料库工具</a></li>
+                        <li><a href="pages/地理信息系统工具平台  数字人文与空间分析.html" class="hover:text-white transition-colors">GIS工具</a></li>
+                        <li><a href="pages/虚拟现实技术与数字人文..html" class="hover:text-white transition-colors">VR技术</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8">
+                <!-- 姐妹链接 -->
+                <div class="mb-8">
+                    <h4 class="text-lg font-bold mb-4 text-gray-300">战略合作</h4>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="https://www.dhshubs.com" target="_blank" class="px-4 py-2 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors flex items-center">
+                            <i class="fas fa-link text-blue-400 mr-2"></i>
+                            <span class="text-gray-300">数字人文中心</span>
+                        </a>
+                        <a href="https://ai.aigcedus.com" target="_blank" class="px-4 py-2 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors flex items-center">
+                            <i class="fas fa-robot text-green-400 mr-2"></i>
+                            <span class="text-gray-300">AI教育平台</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 访问统计 -->
+                <div class="flex justify-center items-center space-x-4 text-gray-400">
+                    <div class="flex items-center">
+                        <i class="fas fa-eye text-blue-400 mr-2"></i>
+                        <span>访问量：</span>
+                        <span id="visitorCount" class="font-mono ml-1">0</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-users text-purple-400 mr-2"></i>
+                        <span>在线人数：</span>
+                        <span id="onlineCount" class="font-mono ml-1">0</span>
+                    </div>
+                </div>
+
+                <div class="text-center text-gray-400 mt-4">
+                    <p>&copy; 2025 数智人文研究中心. 保留所有权利. | 探索数字时代人文研究的新边界</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 登录模态框 -->
+    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-800" id="modalTitle">用户登录</h3>
+                <button id="closeLoginModal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- 登录表单 -->
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <label for="loginEmail" class="block text-sm font-medium text-gray-700 mb-1">邮箱</label>
+                    <input type="email" id="loginEmail" name="email" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div>
+                    <label for="loginPassword" class="block text-sm font-medium text-gray-700 mb-1">密码</label>
+                    <input type="password" id="loginPassword" name="password" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="remember" name="remember"
+                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                        <label for="remember" class="ml-2 block text-sm text-gray-700">记住我</label>
+                    </div>
+                    <button type="button" id="forgotPasswordBtn" class="text-sm text-blue-600 hover:text-blue-800">忘记密码？</button>
+                </div>
+                <button type="submit"
+                    class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                    登录
+                </button>
+            </form>
+
+            <!-- 注册表单 -->
+            <form id="registerForm" class="space-y-4 hidden">
+                <div>
+                    <label for="registerUsername" class="block text-sm font-medium text-gray-700 mb-1">用户名</label>
+                    <input type="text" id="registerUsername" name="username" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div>
+                    <label for="registerEmail" class="block text-sm font-medium text-gray-700 mb-1">邮箱</label>
+                    <input type="email" id="registerEmail" name="email" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div>
+                    <label for="registerPassword" class="block text-sm font-medium text-gray-700 mb-1">密码</label>
+                    <input type="password" id="registerPassword" name="password" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div>
+                    <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">确认密码</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <button type="submit"
+                    class="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
+                    注册
+                </button>
+            </form>
+
+            <!-- 忘记密码表单 -->
+            <form id="forgotPasswordForm" class="space-y-4 hidden">
+                <div>
+                    <label for="forgotEmail" class="block text-sm font-medium text-gray-700 mb-1">邮箱</label>
+                    <input type="email" id="forgotEmail" name="email" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <button type="submit"
+                    class="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors">
+                    发送重置链接
+                </button>
+            </form>
+
+            <!-- 重置密码表单 -->
+            <form id="resetPasswordForm" class="space-y-4 hidden">
+                <div>
+                    <label for="newPassword" class="block text-sm font-medium text-gray-700 mb-1">新密码</label>
+                    <input type="password" id="newPassword" name="newPassword" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div>
+                    <label for="confirmNewPassword" class="block text-sm font-medium text-gray-700 mb-1">确认新密码</label>
+                    <input type="password" id="confirmNewPassword" name="confirmNewPassword" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <button type="submit"
+                    class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                    重置密码
+                </button>
+            </form>
+
+            <div class="mt-4 text-center">
+                <p class="text-sm text-gray-600">
+                    <span id="loginText">还没有账号？</span>
+                    <button id="toggleFormBtn" class="text-blue-600 hover:text-blue-800">立即注册</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 粒子特效背景和主题切换按钮 -->
+    <div id="particles-js"></div>
+    <button class="theme-btn" onclick="toggleTheme()">切换主题</button>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.parallax');
+            
+            parallaxElements.forEach(element => {
+                const speed = element.dataset.speed || 0.5;
+                const yPos = -(scrolled * speed);
+                element.style.transform = `translate3d(0, ${yPos}px, 0)`;
+            });
+        });
+
+        // Navigation background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-white/95');
+                nav.classList.remove('bg-white/80');
+            } else {
+                nav.classList.add('bg-white/80');
+                nav.classList.remove('bg-white/95');
+            }
+        });
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+
+        // 访问量统计功能
+        function updateVisitorCount() {
+            // 从localStorage获取访问量
+            let count = localStorage.getItem('visitorCount') || 0;
+            count = parseInt(count) + 1;
+            localStorage.setItem('visitorCount', count);
+            document.getElementById('visitorCount').textContent = count;
+
+            // 模拟在线人数（实际项目中应该使用后端服务）
+            const onlineCount = Math.floor(Math.random() * 50) + 10;
+            document.getElementById('onlineCount').textContent = onlineCount;
+        }
+
+        // 页面加载时更新访问量
+        document.addEventListener('DOMContentLoaded', updateVisitorCount);
+
+        // 添加新的动画效果
+        document.addEventListener('DOMContentLoaded', () => {
+            // 鼠标移动视差效果
+            document.addEventListener('mousemove', (e) => {
+                const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+                const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+                
+                document.querySelectorAll('.tech-card').forEach(card => {
+                    card.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                });
+            });
+
+            // 滚动时的视差效果
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                document.querySelectorAll('.tech-grid').forEach(grid => {
+                    grid.style.transform = `translateY(${scrolled * 0.5}px)`;
+                });
+            });
+
+            // 添加打字机效果
+            const heroText = document.querySelector('#home .gradient-text');
+            if (heroText) {
+                const text = heroText.textContent;
+                heroText.textContent = '';
+                let i = 0;
+                const typeWriter = () => {
+                    if (i < text.length) {
+                        heroText.textContent += text.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, 100);
+                    }
+                };
+                typeWriter();
+            }
+        });
+
+        // 登录系统
+        const loginBtn = document.getElementById('loginBtn');
+        const loginModal = document.getElementById('loginModal');
+        const closeLoginModal = document.getElementById('closeLoginModal');
+        const loginForm = document.getElementById('loginForm');
+
+        // 打开登录模态框
+        loginBtn.addEventListener('click', () => {
+            loginModal.classList.remove('hidden');
+            loginModal.classList.add('flex');
+        });
+
+        // 关闭登录模态框
+        closeLoginModal.addEventListener('click', () => {
+            loginModal.classList.add('hidden');
+            loginModal.classList.remove('flex');
+        });
+
+        // 点击模态框外部关闭
+        loginModal.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.classList.add('hidden');
+                loginModal.classList.remove('flex');
+            }
+        });
+
+        // 认证系统
+        const API_URL = 'http://localhost:3000/api';
+        let currentForm = 'login';
+
+        // 切换表单显示
+        function showForm(formName) {
+            const forms = ['loginForm', 'registerForm', 'forgotPasswordForm', 'resetPasswordForm'];
+            forms.forEach(form => {
+                document.getElementById(form).classList.add('hidden');
+            });
+            document.getElementById(formName).classList.remove('hidden');
+            currentForm = formName.replace('Form', '');
+            document.getElementById('modalTitle').textContent = {
+                login: '用户登录',
+                register: '用户注册',
+                forgotPassword: '忘记密码',
+                resetPassword: '重置密码'
+            }[currentForm];
+        }
+
+        // 切换登录/注册表单
+        document.getElementById('toggleFormBtn').addEventListener('click', () => {
+            if (currentForm === 'login') {
+                showForm('registerForm');
+                document.getElementById('toggleFormBtn').textContent = '返回登录';
+                document.getElementById('loginText').textContent = '已有账号？';
+            } else {
+                showForm('loginForm');
+                document.getElementById('toggleFormBtn').textContent = '立即注册';
+                document.getElementById('loginText').textContent = '还没有账号？';
+            }
+        });
+
+        // 忘记密码
+        document.getElementById('forgotPasswordBtn').addEventListener('click', () => {
+            showForm('forgotPasswordForm');
+        });
+
+        // 处理登录
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const response = await fetch(`${API_URL}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    loginBtn.innerHTML = `<i class="fas fa-user-check mr-1"></i>${data.user.username}`;
+                    loginModal.classList.add('hidden');
+                    loginModal.classList.remove('flex');
+                    alert('登录成功！');
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                alert('登录失败，请稍后重试');
+            }
+        });
+
+        // 处理注册
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('registerUsername').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert('两次输入的密码不一致');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    alert('注册成功！请登录');
+                    showForm('loginForm');
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                alert('注册失败，请稍后重试');
+            }
+        });
+
+        // 处理忘记密码
+        document.getElementById('forgotPasswordForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('forgotEmail').value;
+
+            try {
+                const response = await fetch(`${API_URL}/forgot-password`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    alert('重置密码邮件已发送，请查收');
+                    showForm('loginForm');
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                alert('发送失败，请稍后重试');
+            }
+        });
+
+        // 处理重置密码
+        document.getElementById('resetPasswordForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+            const token = new URLSearchParams(window.location.search).get('token');
+
+            if (!token) {
+                alert('无效的重置链接');
+                return;
+            }
+
+            if (newPassword !== confirmNewPassword) {
+                alert('两次输入的密码不一致');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/reset-password`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ token, newPassword })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    alert('密码重置成功！请登录');
+                    window.location.href = '/';
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                alert('重置失败，请稍后重试');
+            }
+        });
+
+        // 检查登录状态
+        function checkLoginStatus() {
+            const token = localStorage.getItem('token');
+            const user = JSON.parse(localStorage.getItem('user') || 'null');
+            
+            if (token && user) {
+                loginBtn.innerHTML = `<i class="fas fa-user-check mr-1"></i>${user.username}`;
+            }
+        }
+
+        // 页面加载时检查登录状态
+        document.addEventListener('DOMContentLoaded', checkLoginStatus);
+    </script>
+    <!-- 粒子特效和主题切换JS，单独插入，不能嵌套在<script>内 -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+    <script>
+    function loadParticles() {
+      const color = getComputedStyle(document.documentElement).getPropertyValue('--particle-color').trim();
+      particlesJS('particles-js', {
+        "particles": {
+          "number": { "value": 150 },
+          "color": { "value": color },
+          "shape": { "type": "circle" },
+          "opacity": { "value": 0.8 },
+          "size": { "value": 4 },
+          "line_linked": {
+            "enable": true,
+            "distance": 120,
+            "color": color,
+            "opacity": 0.7,
+            "width": 2
+          },
+          "move": { "enable": true, "speed": 3 }
+        },
+        "interactivity": {
+          "detect_on": "canvas",
+          "events": {
+            "onhover": { "enable": true, "mode": "repulse" }
+          }
+        }
+      });
+    }
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+      document.getElementById('particles-js').innerHTML = '';
+      loadParticles();
+    }
+    window.addEventListener('DOMContentLoaded', loadParticles);
+    </script>
+</body>
+</html>
